@@ -44,7 +44,6 @@ r_list_t *list_sort(r_list_t **targetList_p) {
             if(this_p == targetList) { //коли голосний ключ - перший елемент списку
                 lastVowel = targetList;
             }
-
             else { //коли голосний ключ - середній елемент списку
                 prev_p->next = this_p->next;
                 if (lastVowel) {
@@ -95,3 +94,8 @@ int main() {
     printList(myList);
     return 0;
 }
+//for() {
+//printf();
+//scanf();
+//scanf();
+//}
