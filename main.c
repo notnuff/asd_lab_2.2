@@ -34,19 +34,6 @@ r_list_t *list_add (r_list_t **targetList_p, char key) {
     return *targetList_p;
 }
 
-r_list_t *list_refill(r_list_t *targetList) {
-    r_list_t *this_p = targetList;
-    char k;
-    do {
-        printf("enter key for %p node \n", this_p);
-        scanf("%c", &k);
-        scanf("%c", &k);
-        this_p->key = k;
-        this_p = this_p->next;
-    } while (this_p);
-    return targetList;
-}
-
 r_list_t *list_sort(r_list_t **targetList_p) {
     r_list_t *targetList = *targetList_p;
     r_list_t *prev_p = NULL;
@@ -87,7 +74,7 @@ void printList(r_list_t *targetList) {
     printf("\n");
 }
 
-void list_create(r_list_t *targetList) {
+void list_create(r_list_t **targetList_p) {
     int n;
     printf("enter the size of list: ");
     scanf("%i", &n);
@@ -96,13 +83,13 @@ void list_create(r_list_t *targetList) {
     scanf("%s", &string);
     for (int i = 0; i < n; i++) {
         char key = string[i];
-        list_add(&targetList, key);
+        list_add(targetList_p, key);
     }
 }
 
 int main() {
     r_list_t *myList = NULL;
-    list_create(myList);
+    list_create(&myList);
     printList(myList);
     list_sort(&myList);
     printList(myList);
