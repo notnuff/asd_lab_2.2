@@ -2,8 +2,8 @@
 #include <stdlib.h>
 
 int isVowel(char letter) {
-    char vowels[5] = {'a', 'e', 'i', 'o', 'u'};
-    for (int i = 0; i < 5; i++) {
+    char vowels[6] = {'a', 'e', 'i', 'o', 'u', 'y'};
+    for (int i = 0; i < 6; i++) {
         if (letter == vowels[i]) return 1;
     }
     return 0;
@@ -53,20 +53,29 @@ r_list_t *list_sort(r_list_t **targetList_p) {
     r_list_t *this_p = targetList;
     r_list_t *lastVowel = NULL;
     while(this_p) {
-        if(isVowel(this_p->key)){
+        if(isVowel(this_p->key)) {
             if(this_p == targetList) { //коли голосний ключ - перший елемент списку
                 lastVowel = targetList;
             }
 
-            else if(this_p->next) { //коли голосний ключ - середній елемент списку
+            else { //коли голосний ключ - середній елемент списку
                 prev_p->next = this_p->next;
-                this_p->next = lastVowel->next;
-                lastVowel->next = this_p;
+                if (lastVowel) {
+                    this_p->next = lastVowel->next;
+                    lastVowel->next = this_p;
+                    lastVowel = this_p;
+                }
+                else {
+                    this_p->next = targetList;
+                    *targetList_p = this_p;
+                    lastVowel = this_p;
+                }
             }
         }
         prev_p = this_p;
         this_p = this_p->next;
     }
+    return targetList;
 }
 
 void printList(r_list_t *targetList) {
@@ -75,21 +84,27 @@ void printList(r_list_t *targetList) {
                targetList, targetList->key, targetList->next);
         targetList = targetList->next;
     }
+    printf("\n");
+}
+
+void list_create(r_list_t *targetList) {
+    int n;
+    printf("enter the size of list: ");
+    scanf("%i", &n);
+    char string[n];
+    printf("enter the string of keys: ");
+    scanf("%s", &string);
+    for (int i = 0; i < n; i++) {
+        char key = string[i];
+        list_add(&targetList, key);
+    }
 }
 
 int main() {
     r_list_t *myList = NULL;
-    int n;
-    printf("enter the size of list: ");
-    scanf("%i", &n);
-    for (int i = 0; i < n; i++) {
-        char key;
-        printf("enter the value of %i element: ", i);
-        scanf("%c", &key);
-        scanf("%c", &key);
-        list_add(&myList, key);
-    }
+    list_create(myList);
     printList(myList);
-
+    list_sort(&myList);
+    printList(myList);
     return 0;
 }
