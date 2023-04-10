@@ -104,11 +104,15 @@ int list_clear(r_list_t **targetList_p) {
 
 int main() {
     r_list_t *myList = NULL;
+
     list_create(&myList);
-    printf("head = %p\n",myList);
     printList(myList);
+
     list_sort(&myList);
     printList(myList);
+
     list_clear(&myList);
+    printf("%p", myList);
+
     return 0;
 }
