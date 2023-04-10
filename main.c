@@ -106,9 +106,12 @@ int main() {
     r_list_t *myList = NULL;
 
     list_create(&myList);
+    printf("ініціалізований список: \n");
     printList(myList);
 
+
     list_sort(&myList);
+    printf("відсортований список: \n");
     printList(myList);
 
     list_clear(&myList);
