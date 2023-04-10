@@ -86,16 +86,29 @@ void list_create(r_list_t **targetList_p) {
     }
 }
 
+int list_clear(r_list_t **targetList_p) {
+    r_list_t *this_p = *targetList_p;
+    if (this_p == NULL) {
+        printf("the list is empty");
+        return 0;
+    }
+    r_list_t *next_p;
+    while (this_p) {
+        next_p = this_p->next;
+        free(this_p);
+        this_p = next_p;
+    }
+    *targetList_p = NULL;
+    return 1;
+}
+
 int main() {
     r_list_t *myList = NULL;
     list_create(&myList);
+    printf("head = %p\n",myList);
     printList(myList);
     list_sort(&myList);
     printList(myList);
+    list_clear(&myList);
     return 0;
 }
-//for() {
-//printf();
-//scanf();
-//scanf();
-//}
